@@ -5,6 +5,8 @@
 # Importando módulos necessários
 import json
 import requests
+import time
+import os
 print("Aguardando estabelecer conexão...")
 # Definindo variáveis
 # Validando conexão com o servidor de dados (API)
@@ -18,6 +20,8 @@ count = -1
 validate = url.status_code
 # Main execução:
 print("Estado atual da conexão: "+str(validate))
+time.sleep(3)
+os.system('clear')
 # chave e valor JSON
 #print(content.keys())
 print(" ")
@@ -25,15 +29,18 @@ print("Status global:")
 # variaveis de status global
 world_total_cases = content['Global']['TotalConfirmed']
 world_total_mortes = content['Global']['TotalDeaths']
+str_world_total_cases = str(content['Global']['TotalConfirmed'])
+str_world_total_mortes = str(content['Global']['TotalDeaths'])
 try:
     world_percent_deaths = (world_total_mortes / world_total_cases) * 100
 except ZeroDivisionError:
     world_percent_deaths = 0
 str_world_percent_deaths = str(world_percent_deaths)
-print("Total de casos: "+str(world_total_cases))
-print("Total de mortes: "+str(world_total_mortes))
-print("Letalidade Mundial: "+str_world_percent_deaths+"%")
+print("Total de casos: "+str_world_total_cases[0]+","+str_world_total_cases[1:3]+"milhões")
+print("Total de mortes: "+str_world_total_mortes[0:3]+"mil")
+print("Letalidade Mundial: "+str_world_percent_deaths[0:4]+"%")
 print("-------------------------------------------------")
+time.sleep(10)
 print("Relatorio por pais/regiao:")
 while count != 245:
     count = count + 1
@@ -51,3 +58,4 @@ while count != 245:
     str_percents_deaths = str(percent_deaths)
     print("Letalidade: "+str_percents_deaths[0:4]+"%")
     print("")
+    time.sleep(1)
